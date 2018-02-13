@@ -1,0 +1,88 @@
+.App {
+  background: #F1F5F7;
+  color: rgba(0,0,0,.84);
+  height: 100vh;
+  overflow: auto;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 30px;
+  margin: 0;
+  padding: 25px 0;
+  font-family: Courier;
+}
+
+h4 {
+  margin: 0;
+  padding: 20px;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  border-bottom: 1px solid #D1D8DF;
+}
+
+p {
+  margin: 0;
+  line-height: 1.55;
+  letter-spacing: -.003em;
+  --x-height-multiplier: 0.375;
+  --baseline-multiplier: 0.17;
+  word-wrap: break-word;
+  text-rendering: optimizeLegibility;
+}
+
+.content {
+  width: 1366px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0,0,0,.1);
+}
+
+.entries {
+  margin-top: 25px;
+  display: flex;
+  align-items: stretch;
+}
+
+.entries .card {
+  flex: 1;
+}
+
+.input, .select {
+  font-size: 16px;
+  padding: 0 16px;
+  border: 1px solid rgb(204,210,218);
+  height: 42px;
+  line-height: 40px;
+  background: rgb(250,250,250);
+  color: rgba(0,0,0,.5);
+  margin-bottom: 8px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.input:focus,
+.select:focus {
+  color: black;
+}
+
+.rest-value {
+  padding: 25px;
+  padding-top: 0;
+  text-align: center;
+  font-size: 25px;
+}
+
+.pd-25 {
+  padding: 25px;
+}
+
+.mg-r-25 {
+  margin-right: 25px;
+}

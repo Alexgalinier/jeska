@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+}
+
+html {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 400;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.width-limit {
+  position: fixed;
+  width: 1px;
+  height: 100vh;
+  top: 0;
+  left: 1366px;
+  background: red;
+}
