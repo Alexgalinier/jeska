@@ -1,0 +1,210 @@
+@import '../../../../node_modules/a_design/styles/mixins'
+
+.graph {
+  _grow()
+  _fx()
+  overflow auto
+
+  #info-over {
+    position absolute
+    z-index 3
+    padding 20px
+    background black
+    color white
+  }
+
+  .graph-content {
+    _fx()
+    _p(25)
+    margin 0 auto
+    max-width 1000px
+    width 100%
+  }
+
+  .block {
+    _fx()
+    flex 1
+    flex-direction column
+  }
+
+  .block .block-content {
+    position relative
+    _fx()
+    flex 1
+    flex-direction column
+    justify-content flex-end
+    padding-top 45px
+    padding-right 40px
+    padding-left 80px
+  }
+
+  .legend {
+    position absolute
+    top 0
+    right 20px
+    bottom 0
+    left 20px
+    _fx()
+    z-index 1
+    flex-direction column-reverse
+    padding-top 45px
+    padding-bottom 45px
+  }
+
+  .legend .crossline {
+    position relative
+    flex 1
+    margin-left 50px
+    border-top 1px solid rgb(200, 200, 200)
+
+    &:first-child {
+      border-bottom 1px solid rgb(200, 200, 200)
+    }
+  }
+
+  .legend .crossline span {
+    _lh1()
+    _pr(10)
+    position absolute
+    top -8px
+    left -50px
+    width 50px
+    color #696969
+    text-align right
+  }
+
+  .legend .crossline span:nth-child(2) {
+    top auto
+    bottom -8px
+  }
+
+  .columns {
+    _fx()
+    z-index 2
+    flex 1
+  }
+
+  .columns .col {
+    _fx()
+    flex 1
+    flex-direction column-reverse
+    margin-right 10px
+    width 12.5%
+
+    &:last-child {
+      _mr(0)
+    }
+  }
+
+  .columns .col .rects {
+    _fx()
+    flex 1
+    flex-direction column-reverse
+  }
+
+  .columns .col .rects .rect {
+    _fx()
+    z-index 1
+    justify-content center
+    align-items center
+    opacity .7
+    transition height .25s
+    transform scale(1)
+
+    &:last-child {
+      border-top-left-radius 3px
+      border-top-right-radius 3px
+    }
+
+    &:hover {
+      z-index 2
+      box-shadow 0 0 10px rgba(0, 0, 0, .5)
+      transition all .25s ease
+      transform scale(1.05, 1)
+    }
+  }
+
+  .columns .col.blue .rects .rect {
+    &:nth-child(3n+1) {
+      background #2196F3
+      color #1c2a43
+    }
+
+    &:nth-child(3n+2) {
+      background #64B5F6
+      color #05182A
+    }
+
+    &:nth-child(3n+3) {
+      background #90CAF9
+      color #05182A
+    }
+  }
+
+  .columns .col.green .rects .rect {
+    &:nth-child(3n+1) {
+      background #4CAF50
+      color #003636
+    }
+
+    &:nth-child(3n+2) {
+      background #81C784
+      color #005500
+    }
+
+    &:nth-child(3n+3) {
+      background #A5D6A7
+      color #005500
+    }
+  }
+
+  .columns .col.yellow .rects .rect {
+    &:nth-child(3n+1) {
+      background #FFC107
+      color #555344
+    }
+
+    &:nth-child(3n+2) {
+      background #FFD54F
+      color #555344
+    }
+
+    &:nth-child(3n+3) {
+      background #FFF59D
+      color #555344
+    }
+  }
+
+  .columns .col.orange .rects .rect {
+    &:nth-child(3n+1) {
+      background #FF9800
+      color #802200
+    }
+
+    &:nth-child(3n+2) {
+      background #FFB74D
+      color #802200
+    }
+
+    &:nth-child(3n+3) {
+      background #FFCC80
+      color #802200
+    }
+  }
+
+  .columns .col .rects .rect span {
+    overflow-x hidden
+    padding 0 5px
+    text-overflow ellipsis
+    white-space nowrap
+    font-size 1
+  }
+
+  .columns .col label {
+    _pt(10)
+    _lh1()
+    display block
+    color #696969
+    text-align center
+  }
+}
