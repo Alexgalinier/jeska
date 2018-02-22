@@ -1,0 +1,98 @@
+@import '../../../../node_modules/a_design/styles/mixins'
+
+.Entries {
+  overflow auto
+
+  .block {
+    _mt(20)
+
+    &:first-child {
+      _mt(0)
+    }
+  }
+
+  .block.blue .row:nth-child(3n+1) .square,
+  .block.blue .group:nth-child(3n+1) .row .square {
+    background #2196F3
+  }
+
+  .block.blue .row:nth-child(3n+2) .square,
+  .block.blue .group:nth-child(3n+2) .row .square {
+    background #64B5F6
+  }
+
+  .block.blue .row:nth-child(3n+3) .square,
+  .block.blue .group:nth-child(3n+3) .row .square {
+    background #90CAF9
+  }
+
+  .block.green .row:nth-child(3n+1) .square {
+    background #4CAF50
+  }
+
+  .block.green .row:nth-child(3n+2) .square {
+    background #81C784
+  }
+
+  .block.green .row:nth-child(3n+3) .square {
+    background #A5D6A7
+  }
+
+  .block.yellow .row:nth-child(3n+1) .square {
+    background #FFC107
+  }
+
+  .block.yellow .row:nth-child(3n+2) .square {
+    background #FFD54F
+  }
+
+  .block.yellow .row:nth-child(3n+3) .square {
+    background #FFF59D
+  }
+
+  .block.orange .row:nth-child(3n+1) .square {
+    background #FF9800
+  }
+
+  .block.orange .row:nth-child(3n+2) .square {
+    background #FFB74D
+  }
+
+  .block.orange .row:nth-child(3n+3) .square {
+    background #FFCC80
+  }
+
+  .group h3 {
+    _mtb(10)
+    _fs(16)
+  }
+
+  .group:first-child h3 {
+    _mt(0)
+  }
+
+  .row {
+    _fx()
+    _mt(10)
+
+    &:first-child {
+      _mt(0)
+    }
+  }
+
+  .row .input:nth-child(1) {
+    min-width 200px
+    width 100%
+  }
+
+  .row .input:nth-child(2) {
+    max-width 80px
+    text-align center
+  }
+
+  .row .square {
+    _p(20)
+    // _bg('blue')
+    border-radius 3px
+  }
+}
