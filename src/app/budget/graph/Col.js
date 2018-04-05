@@ -1,9 +1,13 @@
 import React from 'react';
 
-export default ({ label, id, color, max, data }) => {
+export default ({ label, id, color, max, parentHeight, data }) => {
   const percentHeight = (val, max) => {
+    const rectHeightPercent = Math.round(val / max * 100);
+    const rectHeight = parentHeight ? Math.round(parentHeight * rectHeightPercent / 100) : null;
+
     return {
-      height: Math.round(val / max * 100) + '%',
+      height: rectHeightPercent + '%',
+      fontSize: !rectHeight || rectHeight >= 18 ? '16px' : rectHeight - 2 + 'px',
     };
   };
 
