@@ -9,10 +9,11 @@ export default class Graph extends Component {
   state = {
     height: null,
   };
+  columnsDOM = null;
 
   componentDidMount() {
     this.setState({
-      height: document.getElementById('graph-columns').clientHeight,
+      height: this.columnsDOM.clientHeight,
     });
   }
 
@@ -28,7 +29,7 @@ export default class Graph extends Component {
             <div className="legend">
               <Crosslines max={catMax} />
             </div>
-            <div className="columns" id="graph-columns">
+            <div className="columns" ref={_ => (this.columnsDOM = _)}>
               {budget.map(_ => (
                 <Col
                   key={_.id}
