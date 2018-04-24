@@ -1,0 +1,73 @@
+@import 'a_design/styles/mixins'
+
+.overlay {
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  z-index 5
+  display flex
+  justify-content center
+  align-items center
+  background rgba(0, 0, 0, .5)
+}
+
+.modal {
+  max-width 400px
+  width 800px
+  border-radius 3px
+  background white
+}
+
+.modal-title {
+  _p(20)
+  _bb(1)
+  _bc('grey1')
+  _fs(22)
+}
+
+.modal-content {
+  _p(20)
+}
+
+.modal .form-entry:first-child {
+  _pb(10)
+}
+
+.modal .form-actions {
+  _plr(20)
+  _pb(20)
+}
+
+.modal .button.secondary {
+  background white
+  _color('black')
+
+  &:hover {
+    background rgba(0, 0, 0, .1)
+  }
+}
+
+.modal .button:first-child {
+  _mr(10)
+}
+
+.modal .button:last-child {
+  _ml(10)
+}
+
+.modal .form-actions {
+  display flex
+  align-items center
+}
+
+.modal .input:disabled,
+.modal .button:disabled {
+  opacity .8
+}
+
+.error-message {
+  _pt(20)
+  _color('red')
+}

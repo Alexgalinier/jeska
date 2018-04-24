@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Block } from 'a_design-components';
-import { BudgetService } from './../Budget.service';
+import { maxBudget } from './../Budget.service';
 import Crosslines from './Crosslines';
 import Col from './Col';
 import './Graph.css';
@@ -19,7 +19,7 @@ export default class Graph extends Component {
 
   render() {
     const { budget } = this.props;
-    const catMax = BudgetService.maxBudget();
+    const catMax = maxBudget();
 
     return (
       <div className="graph">
