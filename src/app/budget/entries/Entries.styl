@@ -1,4 +1,4 @@
-@import '../../../../node_modules/a_design/styles/mixins'
+@import 'a_design/styles/mixins'
 
 .Entries {
   overflow auto
@@ -14,52 +14,64 @@
   .block.blue .row:nth-child(3n+1) .square,
   .block.blue .group:nth-child(3n+1) .row .square {
     background #2196F3
+    color #1c2a43
   }
 
   .block.blue .row:nth-child(3n+2) .square,
   .block.blue .group:nth-child(3n+2) .row .square {
     background #64B5F6
+    color #05182A
   }
 
   .block.blue .row:nth-child(3n+3) .square,
   .block.blue .group:nth-child(3n+3) .row .square {
     background #90CAF9
+    color #05182A
   }
 
   .block.green .row:nth-child(3n+1) .square {
     background #4CAF50
+    color #003636
   }
 
   .block.green .row:nth-child(3n+2) .square {
     background #81C784
+    color #005500
   }
 
   .block.green .row:nth-child(3n+3) .square {
     background #A5D6A7
+    color #005500
   }
 
   .block.yellow .row:nth-child(3n+1) .square {
     background #FFC107
+    color #555344
   }
 
   .block.yellow .row:nth-child(3n+2) .square {
     background #FFD54F
+    color #555344
   }
 
   .block.yellow .row:nth-child(3n+3) .square {
     background #FFF59D
+    color #555344
   }
 
   .block.orange .row:nth-child(3n+1) .square {
     background #FF9800
+    color #802200
   }
 
   .block.orange .row:nth-child(3n+2) .square {
     background #FFB74D
+    color #802200
   }
 
   .block.orange .row:nth-child(3n+3) .square {
     background #FFCC80
+    color #802200
   }
 
   .group h3 {
@@ -80,9 +92,12 @@
     }
   }
 
+  .row .input {
+    width auto
+  }
+
   .row .input:nth-child(1) {
     min-width 200px
-    width 100%
   }
 
   .row .input:nth-child(2) {
@@ -91,8 +106,35 @@
   }
 
   .row .square {
-    _p(20)
-    // _bg('blue')
+    _ptb(10)
+    width 40px
+    border none
     border-radius 3px
+    text-align center
+    font-weight normal
+    line-height 20px
+    cursor pointer
+    _mt(0)
+  }
+
+  .button {
+    _mt(10)
+    _bg('grey2')
+    _color('alpha50')
+    _bc('grey1')
+    height 40px
+    border-width 4px
+    border-style dashed
+    line-height 32px
+    _plr(10)
+    _ptb(0)
+    width 100%
+
+    &:hover,
+    &:active {
+      border-color darken(rgb(209, 216, 223), 3%)
+      background darken(rgb(240, 240, 240), 3%)
+      box-shadow none
+    }
   }
 }

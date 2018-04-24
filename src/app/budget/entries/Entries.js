@@ -1,66 +1,79 @@
-import React from 'react';
-import { Block } from 'a_design-components';
+import React, { PureComponent } from 'react';
+import { Block, Button } from 'a_design-components';
 import Input from './Input';
 import './Entries.css';
 
-export default ({ budget, onChange }) => {
-  const curryOnChange = (id, type, parentType) => e => onChange(id, type, e.target.value, parentType);
+export default class Entries extends PureComponent {
+  catsLastInput = {};
+  groupsLastInput = {};
 
-  const formatCat = cat => (
-    <div>
-      {cat.data.map(_ => formatData(_))}
-      <div key={cat.id + 'new-entry'} className="row">
-        <Input
-          key={cat.id + 'new-label'}
-          inputValue={cat.newLabel}
-          inputOnChange={curryOnChange(cat.id, 'label', 'cat')}
-        />
-        <Input
-          key={cat.id + 'new-value'}
-          inputValue={cat.newValue}
-          inputOnChange={curryOnChange(cat.id, 'value', 'cat')}
-        />
-        <div className="square"> </div>
+  componentDidUpdate() {
+    const { focusOnCat, focusOnGroup } = this.props;
+
+    console.log(focusOnCat, focusOnGroup);
+
+    if (focusOnCat && this.catsLastInput[focusOnCat]) {
+      this.catsLastInput[focusOnCat].focus();
+    }
+
+    if (focusOnGroup && this.groupsLastInput[focusOnGroup]) {
+      this.groupsLastInput[focusOnGroup].focus();
+    }
+  }
+
+  render() {
+    const { budget, budgetUpdate, budgetRemove } = this.props;
+
+    const curryOnChange = (id, type, parentType) => e => budgetUpdate(id, type, e.target.value, parentType);
+    const curryOnRemove = id => () => budgetRemove(id);
+
+    const formatCat = cat => (
+      <div>
+        {cat.data.map((_, index) => {
+          if (index === cat.data.length - 1) {
+            return formatData(_, input => (this.catsLastInput[cat.id] = input));
+          }
+          return formatData(_);
+        })}
+        <Button title="+ Ajouter" onClick={curryOnChange(cat.id, '', 'cat')} />
       </div>
-    </div>
-  );
+    );
 
-  const formatGroup = group => (
-    <div key={group.id} className="group">
-      <h3>{group.label}</h3>
-      {group.data.map(_ => formatData(_))}
-      <div key={group.id + 'new-entry'} className="row">
-        <Input
-          key={group.id + 'new-label'}
-          inputValue={group.newLabel}
-          inputOnChange={curryOnChange(group.id, 'label', 'group')}
-        />
-        <Input
-          key={group.id + 'new-value'}
-          inputValue={group.newValue}
-          inputOnChange={curryOnChange(group.id, 'value', 'group')}
-        />
-        <div className="square"> </div>
+    const formatGroup = group => (
+      <div key={group.id} className="group">
+        <h3>{group.label}</h3>
+        {group.data.map((_, index) => {
+          if (index === group.data.length - 1) {
+            return formatData(_, input => (this.groupsLastInput[group.id] = input));
+          }
+          return formatData(_);
+        })}
+        <Button title="+ Ajouter" onClick={curryOnChange(group.id, '', 'group')} />
       </div>
-    </div>
-  );
+    );
 
-  const formatData = entry => (
-    <div key={entry.id} className="row">
-      <Input key={entry.id + 'label'} inputValue={entry.label} inputOnChange={curryOnChange(entry.id, 'label')} />
-      <Input key={entry.id + 'value'} inputValue={entry.value} inputOnChange={curryOnChange(entry.id, 'value')} />
-      <div className="square"> </div>
-    </div>
-  );
+    const formatData = (entry, ref) => (
+      <div key={entry.id} className="row">
+        <Input
+          inputRef={ref}
+          key={entry.id + 'label'}
+          inputValue={entry.label}
+          inputOnChange={curryOnChange(entry.id, 'label')}
+        />
+        <Input key={entry.id + 'value'} inputValue={entry.value} inputOnChange={curryOnChange(entry.id, 'value')} />
+        <Button title="x" className="square" onClick={curryOnRemove(entry.id)} />
+      </div>
+    );
 
-  return (
-    <div className="Entries _p25 _br1 _bc-grey1">
-      {budget.map(cat => (
-        <Block key={cat.id} title={cat.label} className={cat.color}>
-          {cat.data ? formatCat(cat) : ''}
-          {cat.group ? cat.group.map(_ => formatGroup(_)) : ''}
-        </Block>
-      ))}
-    </div>
-  );
-};
+    return (
+      <div className="Entries _p25 _br1 _bc-grey1">
+        {budget.map(cat => (
+          <Block key={cat.id} title={cat.label} className={cat.color}>
+            {cat.data ? formatCat(cat) : ''}
+            {cat.group ? cat.group.map(_ => formatGroup(_)) : ''}
+          </Block>
+        ))}
+      </div>
+    );
+  }
+}
