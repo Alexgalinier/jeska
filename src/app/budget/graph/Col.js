@@ -13,18 +13,23 @@ export default ({ label, id, color, max, parentHeight, data }) => {
 
   const sumValues = entry => {
     if (entry.value) return entry.value;
-    if (entry.data) return entry.data.reduce((acc, _) => acc + _.value, 0);
+    if (entry.data) return entry.data.reduce((acc, _) => acc + (_.value ? _.value : 0), 0);
   };
 
   return (
     <div className={'col ' + color} id={id}>
       <label htmlFor={id}>{label}</label>
       <div className="rects">
-        {data.map(_ => (
-          <div className="rect" key={_.id} id={_.id} style={percentHeight(sumValues(_), max)}>
-            <span>{_.label}</span>
-          </div>
-        ))}
+        {data.map(
+          _ =>
+            sumValues(_) !== 0 ? (
+              <div className="rect" key={_.id} id={_.id} style={percentHeight(sumValues(_), max)}>
+                <span>{_.label}</span>
+              </div>
+            ) : (
+              ''
+            )
+        )}
       </div>
     </div>
   );

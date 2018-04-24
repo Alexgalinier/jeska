@@ -1,4 +1,4 @@
-import { fetchBudget, createAccount, login, loginWithToken, logout } from './Budget.service';
+import { fetchBudget, createAccount, login, loginWithToken, logout, update, remove } from './Budget.service';
 
 let store;
 
@@ -14,11 +14,24 @@ export const init = stateOwner => {
     loginError: null,
     user: null,
     showLogin: false,
+    focusOnCat: null,
+    focusOnGroup: null,
   };
 };
 
 export const loadBudgetRequest = () => loading('budget', 'loadBudgetStatus', fetchBudget);
-export const budgetUpdate = (id, type, value, parentType) => {};
+export const budgetUpdate = (id, type, value, parentType) => {
+  update(id, type, value, parentType).then(_ =>
+    store.setState({
+      budget: _,
+      focusOnCat: parentType === 'cat' ? id : null,
+      focusOnGroup: parentType === 'group' ? id : null,
+    })
+  );
+};
+export const budgetRemove = id => {
+  remove(id).then(_ => store.setState({ budget: _ }));
+};
 export const budgetUpdateRequest = () => {};
 export const askForSaveClick = () => store.setState({ showLogin: true });
 export const createAccountClick = (username, password) => {

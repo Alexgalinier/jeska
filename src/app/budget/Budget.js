@@ -19,7 +19,7 @@ export default class Budget extends Component {
   render() {
     return (
       <React.Fragment>
-        <Entries {...this.state} onChange={store.budgetUpdate} />
+        <Entries {...this.state} {...store} />
         <Graph {...this.state} />
         <Save {...this.state} {...store} />
         {this.state.showLogin ? <LoginModal {...this.state} {...store} /> : ''}

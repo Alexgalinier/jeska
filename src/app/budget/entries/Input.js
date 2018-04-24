@@ -11,6 +11,10 @@ export default class Input extends Component {
   };
 
   render() {
-    return <input type="text" className="input _mr10" value={this.state.value} onChange={this.hanldeChange} />;
+    const { inputRef } = this.props;
+
+    return (
+      <input ref={inputRef} type="text" className="input _mr10" value={this.state.value} onChange={this.hanldeChange} />
+    );
   }
 }
