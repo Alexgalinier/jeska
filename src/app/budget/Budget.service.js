@@ -5,9 +5,9 @@ import flatMap from 'lodash/flatMap';
 import _remove from 'lodash/remove';
 import _throttle from 'lodash/throttle';
 import { budgetDefaultEntries, budgetDefaultCatergories, budgetDefaultGroups } from './../../data';
+import { API } from './../../config';
 
 const MAX_BASE = 1000;
-const API = 'http://localhost:3000';
 export const TOKEN_TOO_OLD = 'token-too-old';
 
 let cats = budgetDefaultCatergories;
