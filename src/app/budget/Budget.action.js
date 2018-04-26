@@ -9,6 +9,7 @@ import {
   getServer,
   createServer,
   saveServer,
+  TOKEN_TOO_OLD,
 } from './Budget.service';
 
 let store;
@@ -23,6 +24,8 @@ export const init = stateOwner => {
     createAccountError: null,
     loginStatus: null,
     loginError: null,
+    loginMessage: null,
+    loginWithTokenStatus: null,
     user: null,
     showLogin: false,
     focusOnCat: null,
@@ -30,7 +33,34 @@ export const init = stateOwner => {
   };
 };
 
-export const loadBudgetRequest = () => loading('budget', 'loadBudgetStatus', fetchBudget);
+export const loadBudgetRequest = () => {
+  store.setState({ loadBudgetStatus: 'pending' });
+
+  return fetchBudget().then(_ => {
+    store.setState({
+      budget: _,
+      loadBudgetStatus: 'success',
+    });
+  });
+};
+export const loadServerBudgetRequest = () => {
+  store.setState({ loadBudgetStatus: 'pending' });
+
+  return getServer()
+    .then(fetchBudget)
+    .then(_ => {
+      store.setState({
+        budget: _,
+        loadBudgetStatus: null,
+      });
+    })
+    .catch(() => {
+      store.setState({
+        loadBudgetStatus: 'An error occured',
+      });
+    });
+};
+
 export const budgetUpdate = (id, type, value, parentType) => {
   update(id, type, value, parentType).then(_ => {
     store.setState({
@@ -83,10 +113,22 @@ export const createAccountClick = (username, password) => {
     );
 };
 export const checkLogin = () => {
-  const user = loginWithToken();
-  if (user) {
-    store.setState({ user });
-  }
+  store.setState({ loginWithTokenStatus: 'pending' });
+
+  loginWithToken()
+    .then(user => {
+      store.setState({
+        user,
+        loginWithTokenStatus: null,
+      });
+      loadServerBudgetRequest();
+    })
+    .catch(_ => {
+      if (_ === TOKEN_TOO_OLD) tokenTooOld();
+      store.setState({
+        loginWithTokenStatus: null,
+      });
+    });
 };
 export const loginClick = (username, password) => {
   store.setState({
@@ -102,7 +144,7 @@ export const loginClick = (username, password) => {
         loginError: null,
       });
 
-      getServer().then(loadBudgetRequest);
+      loadServerBudgetRequest();
     })
     .catch(_ =>
       store.setState({
@@ -111,21 +153,19 @@ export const loginClick = (username, password) => {
       })
     );
 };
-export const loginClose = () => store.setState({ showLogin: false });
+export const loginClose = () =>
+  store.setState({
+    showLogin: false,
+    loginMessage: null,
+  });
 export const loginRequest = (username, password) => {};
-export const tokenTooOld = () => {};
+export const tokenTooOld = () => {
+  store.setState({
+    showLogin: true,
+    loginMessage: 'Vous êtiez connecté mais le délai de sécurité a été dépassé. Veuillez vous reconnecter.',
+  });
+};
 export const logoutClick = () => {
   logout();
   store.setState({ user: null });
-};
-
-const loading = (dataKey, loadingKey, loader, loaderParams = []) => {
-  store.setState({ [loadingKey]: 'pending' });
-
-  return loader.apply(null, loaderParams).then(_ => {
-    store.setState({
-      [dataKey]: _,
-      [loadingKey]: 'success',
-    });
-  });
 };

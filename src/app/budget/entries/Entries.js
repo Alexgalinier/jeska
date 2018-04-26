@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Block, Button } from 'a_design-components';
 import Input from './Input';
+import Loader from './../loader/loader';
 import './Entries.css';
 
 export default class Entries extends PureComponent {
@@ -20,7 +21,7 @@ export default class Entries extends PureComponent {
   }
 
   render() {
-    const { budget, budgetUpdate, budgetRemove } = this.props;
+    const { budget, budgetUpdate, budgetRemove, loadBudgetStatus } = this.props;
 
     const curryOnChange = (id, type, parentType) => e => budgetUpdate(id, type, e.target.value, parentType);
     const curryOnRemove = id => () => budgetRemove(id);
@@ -65,6 +66,7 @@ export default class Entries extends PureComponent {
 
     return (
       <div className="Entries _p25 _br1 _bc-grey1">
+        {loadBudgetStatus === 'pending' ? <Loader /> : ''}
         {budget.map(cat => (
           <Block key={cat.id} title={cat.label} className={cat.color}>
             {cat.data ? formatCat(cat) : ''}

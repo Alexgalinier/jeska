@@ -1,6 +1,6 @@
 @import 'a_design/styles/mixins'
 
-.overlay {
+.modal-overlay {
   position fixed
   top 0
   right 0
@@ -18,56 +18,73 @@
   width 800px
   border-radius 3px
   background white
-}
 
-.modal-title {
-  _p(20)
-  _bb(1)
-  _bc('grey1')
-  _fs(22)
-}
-
-.modal-content {
-  _p(20)
-}
-
-.modal .form-entry:first-child {
-  _pb(10)
-}
-
-.modal .form-actions {
-  _plr(20)
-  _pb(20)
-}
-
-.modal .button.secondary {
-  background white
-  _color('black')
-
-  &:hover {
-    background rgba(0, 0, 0, .1)
+  .modal-title {
+    _p(20)
+    _bb(1)
+    _bc('grey1')
+    _fs(22)
   }
-}
 
-.modal .button:first-child {
-  _mr(10)
-}
+  .modal-content {
+    _p(20)
+  }
 
-.modal .button:last-child {
-  _ml(10)
-}
+  .paragraph {
+    _pb(10)
+  }
 
-.modal .form-actions {
-  display flex
-  align-items center
-}
+  .modal-content > .form-entry {
+    _pb(10)
+  }
 
-.modal .input:disabled,
-.modal .button:disabled {
-  opacity .8
-}
+  .modal-content > .form-entry ~ .form-entry {
+    _pb(0)
+  }
 
-.error-message {
-  _pt(20)
-  _color('red')
+  .form-actions {
+    _plr(20)
+    _pb(20)
+  }
+
+  .button.secondary {
+    background white
+    _color('black')
+
+    &:hover {
+      background rgba(0, 0, 0, .1)
+    }
+  }
+
+  .button:first-child {
+    _mr(10)
+  }
+
+  .button:last-child {
+    _ml(10)
+  }
+
+  .form-actions {
+    display flex
+    align-items center
+  }
+
+  .input:disabled,
+  .button:disabled {
+    opacity .8
+    cursor not-allowed
+  }
+
+  .button:disabled:hover {
+    background #4477e5
+  }
+
+  .button.secondary:disabled:hover {
+    background white
+  }
+
+  .error-message {
+    _pt(20)
+    _color('red')
+  }
 }
