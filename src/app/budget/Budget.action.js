@@ -1,4 +1,15 @@
-import { fetchBudget, createAccount, login, loginWithToken, logout, update, remove } from './Budget.service';
+import {
+  fetchBudget,
+  createAccount,
+  login,
+  loginWithToken,
+  logout,
+  update,
+  remove,
+  getServer,
+  createServer,
+  saveServer,
+} from './Budget.service';
 
 let store;
 
@@ -21,19 +32,27 @@ export const init = stateOwner => {
 
 export const loadBudgetRequest = () => loading('budget', 'loadBudgetStatus', fetchBudget);
 export const budgetUpdate = (id, type, value, parentType) => {
-  update(id, type, value, parentType).then(_ =>
+  update(id, type, value, parentType).then(_ => {
     store.setState({
       budget: _,
       focusOnCat: parentType === 'cat' ? id : null,
       focusOnGroup: parentType === 'group' ? id : null,
-    })
-  );
+    });
+
+    saveServer();
+  });
 };
 export const budgetRemove = id => {
-  remove(id).then(_ => store.setState({ budget: _ }));
+  remove(id).then(_ => {
+    store.setState({ budget: _ });
+    saveServer();
+  });
 };
 export const budgetUpdateRequest = () => {};
-export const askForSaveClick = () => store.setState({ showLogin: true });
+export const askForSaveClick = () => {
+  store.setState({ showLogin: true });
+};
+
 export const createAccountClick = (username, password) => {
   if (store.state.createAccountError !== '') {
     store.setState({
@@ -46,14 +65,16 @@ export const createAccountClick = (username, password) => {
 
   createAccount(username, password)
     .then(() => login(username, password))
-    .then(_ =>
+    .then(_ => {
       store.setState({
         user: _,
         showLogin: false,
         createAccountError: null,
         createAccountStatus: null,
-      })
-    )
+      });
+
+      createServer();
+    })
     .catch(_ =>
       store.setState({
         createAccountStatus: 'error',
@@ -73,14 +94,16 @@ export const loginClick = (username, password) => {
   });
 
   login(username, password)
-    .then(_ =>
+    .then(_ => {
       store.setState({
         user: _,
         showLogin: false,
         loginStatus: null,
         loginError: null,
-      })
-    )
+      });
+
+      getServer().then(loadBudgetRequest);
+    })
     .catch(_ =>
       store.setState({
         loginStatus: 'error',

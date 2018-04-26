@@ -17,7 +17,10 @@ export default ({
     inputUsername,
     inputPassword;
 
-  const wrapClick = caller => () => caller(inputUsername.value, inputPassword.value);
+  const wrapClick = caller => e => {
+    e.preventDefault();
+    caller(inputUsername.value, inputPassword.value);
+  };
 
   if (createAccountStatus === 'pending') {
     createAccountTitle = 'En cours...';

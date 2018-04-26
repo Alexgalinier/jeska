@@ -1,4 +1,4 @@
-export const budgetExample3entry = [
+export const budgetDefaultEntries = [
   { id: 'cat-1-1', label: 'Salaire', value: 1200, cat: 'cat-1' },
   { id: 'cat-1-2', label: 'CAF', value: 240, cat: 'cat-1' },
   { id: 'cat-2-1', label: 'Loyer', value: 540, cat: 'cat-2' },
@@ -20,7 +20,7 @@ export const budgetExample3entry = [
   { id: 'cat-9-1', label: 'Vêtement Zara', value: 90, cat: 'cat-9' },
   { id: 'cat-9-2', label: 'Tabac', value: 24, cat: 'cat-9' },
 ];
-export const budgetExample3group = [
+export const budgetDefaultGroups = [
   {
     id: 'group-1',
     label: 'Logement',
@@ -58,7 +58,7 @@ export const budgetExample3group = [
     data: ['cat-7-1', 'cat-7-2'],
   },
 ];
-export const budgetExample3cat = [
+export const budgetDefaultCatergories = [
   {
     id: 'cat-1',
     label: 'Revenues',
