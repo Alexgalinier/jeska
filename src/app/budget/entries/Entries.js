@@ -10,8 +10,6 @@ export default class Entries extends PureComponent {
   componentDidUpdate() {
     const { focusOnCat, focusOnGroup } = this.props;
 
-    console.log(focusOnCat, focusOnGroup);
-
     if (focusOnCat && this.catsLastInput[focusOnCat]) {
       this.catsLastInput[focusOnCat].focus();
     }

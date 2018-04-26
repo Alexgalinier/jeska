@@ -10,5 +10,9 @@ export default ({ user, logoutClick, askForSaveClick }) => {
       </div>
     );
 
-  return <Button title="Sauver ce budget" onClick={askForSaveClick} className="Save" />;
+  return (
+    <div className="Save">
+      Pour sauver/retrouver votre budget, <Button title="Connectez-vous" onClick={askForSaveClick} />
+    </div>
+  );
 };

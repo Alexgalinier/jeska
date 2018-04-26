@@ -94,6 +94,11 @@
 
   .row .input {
     width auto
+
+    &:focus {
+      outline none
+      box-shadow 0 0 3px 3px #90CAF9
+    }
   }
 
   .row .input:nth-child(1) {
@@ -135,6 +140,11 @@
       border-color darken(rgb(209, 216, 223), 3%)
       background darken(rgb(240, 240, 240), 3%)
       box-shadow none
+    }
+
+    &:focus {
+      outline none
+      box-shadow 0 0 3px 3px #90CAF9
     }
   }
 }
