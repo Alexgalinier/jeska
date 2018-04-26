@@ -245,7 +245,8 @@ const isLogged = () => {
 
 // Init
 (() => {
-  const localGet = (id, deflt) => (localStorage.getItem(id) !== null ? JSON.parse(localStorage.getItem(id)) : deflt);
+  const storage = window.localStorage ? window.localStorage : null;
+  const localGet = (id, deflt) => (storage && storage.getItem(id) !== null ? JSON.parse(storage.getItem(id)) : deflt);
 
   cats = localGet('categories', cats);
   groups = localGet('groups', groups);
