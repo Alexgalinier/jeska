@@ -34,6 +34,18 @@ export const maxBudget = () => {
   return max > MAX_BASE ? Math.ceil(max / 100) * 100 : MAX_BASE;
 };
 
+export const restBudget = () => {
+  const totals = budget.map(_ => {
+    if (_.group) {
+      return flatMap(_.group, _ => _.data).reduce((acc, entry) => acc + (entry.value ? entry.value : 0), 0);
+    }
+
+    return _.data.reduce((acc, entry) => acc + (entry.value ? entry.value : 0), 0);
+  });
+
+  return totals[0] - totals[1] - totals[2] - totals[3];
+};
+
 export const createAccount = (username, password) => {
   return axios.post(`${API}/users`, { username, password }).then(_ => _.data);
 };

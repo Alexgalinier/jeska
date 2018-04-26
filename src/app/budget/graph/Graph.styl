@@ -38,6 +38,28 @@
     padding-left 80px
   }
 
+  .rest-legend {
+    position absolute
+    top 20px
+    right 20px
+    _p(20)
+    z-index 3
+    width 40%
+    border-radius 3px
+    background white
+    box-shadow 0 0 10px rgba(0, 0, 0, .5)
+  }
+
+  .rest-legend .rest-num {
+    text-align center
+    _fs(22)
+    _pt(20)
+
+    &.warning {
+      _color('red')
+    }
+  }
+
   .legend {
     position absolute
     top 0
@@ -189,6 +211,11 @@
     &:nth-child(3n+3) {
       background #FFCC80
       color #802200
+    }
+
+    &.rest {
+      _bg('grey1')
+      _color('black')
     }
   }
 
