@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Block } from 'a_design-components';
-import { maxBudget } from './../Budget.service';
+import { Block, Paragraph } from 'a_design-components';
+import { maxBudget, restBudget } from './../Budget.service';
 import Crosslines from './Crosslines';
 import Col from './Col';
 import './Graph.css';
@@ -20,17 +20,25 @@ export default class Graph extends Component {
   render() {
     const { budget } = this.props;
     const catMax = maxBudget();
+    const rest = restBudget();
 
     return (
       <div className="graph">
         <div id="info-over" style={{ display: 'none' }} />
         <div className="graph-content">
           <Block title="Bugdet">
+            <div className="rest-legend">
+              <Paragraph>
+                Le Reste (en gris) est à l'argent disponible après avoir enlevé les dépenses fixes, l'alimentation et
+                les loisirs/divers aux revenues.
+              </Paragraph>
+              <div className={'rest-num' + (rest < 0 ? ' warning' : '')}>{rest} €</div>
+            </div>
             <div className="legend">
               <Crosslines max={catMax} />
             </div>
             <div className="columns" ref={_ => (this.columnsDOM = _)}>
-              {budget.map(_ => (
+              {budget.map((_, index) => (
                 <Col
                   key={_.id}
                   label={_.label}
@@ -39,6 +47,7 @@ export default class Graph extends Component {
                   max={catMax}
                   parentHeight={this.state.height}
                   data={_.group ? _.group : _.data}
+                  shadow={index === budget.length - 1 ? rest : null}
                 />
               ))}
             </div>

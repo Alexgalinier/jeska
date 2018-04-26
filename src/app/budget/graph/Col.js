@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ label, id, color, max, parentHeight, data }) => {
+export default ({ label, id, color, max, parentHeight, data, shadow }) => {
   const percentHeight = (val, max) => {
     const rectHeightPercent = Math.round(val / max * 100);
     const rectHeight = parentHeight ? Math.round(parentHeight * rectHeightPercent / 100) : null;
@@ -29,6 +29,13 @@ export default ({ label, id, color, max, parentHeight, data }) => {
             ) : (
               ''
             )
+        )}
+        {shadow && shadow > 0 ? (
+          <div className="rect rest" key={label + 'shadow'} id={label + 'shadow'} style={percentHeight(shadow, max)}>
+            <span>Reste</span>
+          </div>
+        ) : (
+          ''
         )}
       </div>
     </div>
