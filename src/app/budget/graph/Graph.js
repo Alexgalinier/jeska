@@ -3,6 +3,7 @@ import { Block, Paragraph } from 'a_design-components';
 import { maxBudget, restBudget } from './../Budget.service';
 import Crosslines from './Crosslines';
 import Col from './Col';
+import Loader from './../loader/loader';
 import './Graph.css';
 
 export default class Graph extends Component {
@@ -18,7 +19,7 @@ export default class Graph extends Component {
   }
 
   render() {
-    const { budget } = this.props;
+    const { budget, loadBudgetStatus } = this.props;
     const catMax = maxBudget();
     const rest = restBudget();
 
@@ -27,10 +28,11 @@ export default class Graph extends Component {
         <div id="info-over" style={{ display: 'none' }} />
         <div className="graph-content">
           <Block title="Bugdet">
+            {loadBudgetStatus === 'pending' ? <Loader /> : ''}
             <div className="rest-legend">
               <Paragraph>
-                Le Reste (en gris) est à l'argent disponible après avoir enlevé les dépenses fixes, l'alimentation et
-                les loisirs/divers aux revenues.
+                Le Reste (en gris) est l'argent disponible après avoir enlevé les dépenses fixes, l'alimentation et les
+                loisirs/divers aux revenues.
               </Paragraph>
               <div className={'rest-num' + (rest < 0 ? ' warning' : '')}>{rest} €</div>
             </div>

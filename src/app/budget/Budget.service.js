@@ -8,6 +8,7 @@ import { budgetDefaultEntries, budgetDefaultCatergories, budgetDefaultGroups } f
 
 const MAX_BASE = 1000;
 const API = 'http://localhost:3000';
+export const TOKEN_TOO_OLD = 'token-too-old';
 
 let cats = budgetDefaultCatergories;
 let groups = budgetDefaultGroups;
@@ -58,12 +59,27 @@ export const login = (username, password) => {
 };
 
 export const loginWithToken = () => {
-  const token = localStorage.getItem('token');
-  return token === null ? null : jwtDecode(token);
+  return new Promise((res, rej) => {
+    const token = localStorage.getItem('token');
+
+    if (!token) return rej('No token available');
+
+    axios
+      .get(`${API}/loginWithToken`, {
+        headers: { Authorization: token },
+      })
+      .then(() => {
+        res(jwtDecode(token));
+      })
+      .catch(() => {
+        localStorage.removeItem('token');
+        rej(TOKEN_TOO_OLD);
+      });
+  });
 };
 
 export const logout = () => {
-  localStorage.clear('token');
+  localStorage.removeItem('token');
 };
 
 export const update = (id, type, val, parentType) => {
@@ -183,26 +199,28 @@ export const createServer = () => {
       }
     )
     .catch(function(error) {
-      console.log('err', error);
+      console.error('Impossible to create finances on server', error);
     });
 };
 
 export const saveServer = _throttle(() => {
-  axios
-    .put(
-      `${API}/finances`,
-      {
-        categories: cats,
-        groups: groups,
-        entries: entries,
-      },
-      {
-        headers: { Authorization: localStorage.getItem('token') },
-      }
-    )
-    .catch(function(error) {
-      console.log('err', error);
-    });
+  if (isLogged()) {
+    axios
+      .put(
+        `${API}/finances`,
+        {
+          categories: cats,
+          groups: groups,
+          entries: entries,
+        },
+        {
+          headers: { Authorization: localStorage.getItem('token') },
+        }
+      )
+      .catch(function(error) {
+        console.error('Impossible to save on server', error);
+      });
+  }
 }, 4000);
 
 export const getServer = () => {
@@ -217,8 +235,12 @@ export const getServer = () => {
       return _;
     })
     .catch(function(error) {
-      console.log('err', error);
+      console.log('Impossible to retrieve from server', error);
     });
+};
+
+const isLogged = () => {
+  return localStorage.getItem('token') !== null;
 };
 
 // Init
