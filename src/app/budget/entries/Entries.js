@@ -59,13 +59,20 @@ export default class Entries extends PureComponent {
           inputValue={entry.label}
           inputOnChange={curryOnChange(entry.id, 'label')}
         />
-        <Input key={entry.id + 'value'} inputValue={entry.value} inputOnChange={curryOnChange(entry.id, 'value')} />
+        <input
+          type="text"
+          className="input"
+          key={entry.id + 'value'}
+          value={entry.value}
+          onChange={curryOnChange(entry.id, 'value')}
+          maxLength="4"
+        />
         <Button title="x" className="square" onClick={curryOnRemove(entry.id)} />
       </div>
     );
 
     return (
-      <div className="Entries _p25 _br1 _bc-grey1">
+      <div className="Entries">
         {loadBudgetStatus === 'pending' ? <Loader /> : ''}
         {budget.map(cat => (
           <Block key={cat.id} title={cat.label} className={cat.color}>

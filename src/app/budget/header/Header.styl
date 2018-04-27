@@ -1,0 +1,35 @@
+@import 'a_design/styles/mixins'
+
+.Header {
+  position absolute
+  top 0
+  right 0
+  left 0
+  height 60px
+  line-height 60px
+  _fx()
+  _plr(20)
+  align-items center
+  background white
+  box-shadow 0 3px 3px rgba(0, 0, 0, .1)
+
+  div {
+    flex 1
+    text-align left
+  }
+
+  div:last-child {
+    text-align right
+  }
+
+  .Details {
+    position static
+    _p(0)
+  }
+
+  .Details a {
+    _color('blue')
+    text-decoration underline
+    cursor pointer
+  }
+}

@@ -3,6 +3,9 @@
 .Entries {
   position relative
   overflow auto
+  _p(25)
+  _br(1)
+  _bc('grey1')
 
   .block {
     _mt(20)
@@ -104,11 +107,13 @@
 
   .row .input:nth-child(1) {
     min-width 200px
+    _mr(10)
   }
 
   .row .input:nth-child(2) {
     max-width 80px
     text-align center
+    _mr(10)
   }
 
   .row .square {
@@ -146,5 +151,23 @@
       outline none
       box-shadow 0 0 3px 3px #90CAF9
     }
+  }
+}
+
+.small .Entries {
+  _p(0)
+  _pt(20)
+  margin-top 50px
+
+  .block-title {
+    _pl(20)
+  }
+
+  .block-content {
+    border-radius 0
+  }
+
+  .row .input:nth-child(1) {
+    min-width 0
   }
 }
