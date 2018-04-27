@@ -14,8 +14,8 @@
 }
 
 .modal {
-  max-width 400px
-  width 800px
+  position relative
+  width 500px
   border-radius 3px
   background white
 
@@ -23,6 +23,16 @@
     _p(20)
     _bb(1)
     _bc('grey1')
+    _fs(22)
+  }
+
+  .modal-close {
+    position absolute
+    top 0
+    right 20px
+    font-family fantasy
+    line-height 62px
+    cursor pointer
     _fs(22)
   }
 
@@ -45,6 +55,25 @@
   .form-actions {
     _plr(20)
     _pb(20)
+    display flex
+    align-items center
+  }
+
+  .form-actions div {
+    text-align center
+  }
+
+  .form-actions div:first-child,
+  .form-actions div:last-child {
+    flex 1
+  }
+
+  .form-actions div:nth-child(2) {
+    _mlr(10)
+  }
+
+  .button {
+    width 100%
   }
 
   .button.secondary {
@@ -54,19 +83,6 @@
     &:hover {
       background rgba(0, 0, 0, .1)
     }
-  }
-
-  .button:first-child {
-    _mr(10)
-  }
-
-  .button:last-child {
-    _ml(10)
-  }
-
-  .form-actions {
-    display flex
-    align-items center
   }
 
   .input:disabled,
@@ -86,5 +102,10 @@
   .error-message {
     _pt(20)
     _color('red')
+  }
+
+  .error-message .paragraph {
+    _m(0)
+    _p(0)
   }
 }
