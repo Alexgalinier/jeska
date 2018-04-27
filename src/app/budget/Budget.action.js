@@ -11,6 +11,7 @@ import {
   saveServer,
   TOKEN_TOO_OLD,
 } from './Budget.service';
+import { SMALL_BREAKPOINT } from './../../config';
 
 let store;
 
@@ -30,6 +31,11 @@ export const init = stateOwner => {
     showLogin: false,
     focusOnCat: null,
     focusOnGroup: null,
+    width: null,
+    height: null,
+    isSmall: false,
+    showEntries: true,
+    showGraph: false,
   };
 };
 
@@ -170,4 +176,26 @@ export const tokenTooOld = () => {
 export const logoutClick = () => {
   logout();
   store.setState({ user: null });
+};
+
+export const checkWindowDimensions = () => {
+  store.setState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    isSmall: window.innerWidth <= SMALL_BREAKPOINT,
+  });
+};
+
+export const askShowGraph = () => {
+  store.setState({
+    showGraph: true,
+    showEntries: false,
+  });
+};
+
+export const askShowEntries = () => {
+  store.setState({
+    showGraph: false,
+    showEntries: true,
+  });
 };
