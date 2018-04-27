@@ -87,7 +87,8 @@ export const createAccountClick = (username, password) => {
   if (store.state.createAccountError !== '') {
     store.setState({
       createAccountStatus: 'pending',
-      createAccountError: '',
+      createAccountError: null,
+      loginError: null,
     });
   } else {
     store.setState({ createAccountStatus: 'pending' });
@@ -108,7 +109,7 @@ export const createAccountClick = (username, password) => {
     .catch(_ =>
       store.setState({
         createAccountStatus: 'error',
-        createAccountError: _.response.data.message,
+        createAccountError: 'Impossible de créer un compte, veuillez réessayer plus tard.',
       })
     );
 };
@@ -133,6 +134,7 @@ export const checkLogin = () => {
 export const loginClick = (username, password) => {
   store.setState({
     loginStatus: 'pending',
+    loginError: null,
   });
 
   login(username, password)
